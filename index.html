@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Second Tier — Pied-à-Terre Prospect File, 8 Cities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400;1,6..72,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17191C;
+    --paper:#E8E4DC;
+    --card:#DDD8CF;
+    --card-2:#F0ECE3;
+    --slate:#3A4554;
+    --slate-dim:#6A7A8E;
+    --amber:#8B6B2E;
+    --amber-glow:#C49A44;
+    --green:#3D5C48;
+    --green-dim:#6A8C78;
+    --red:#7A3530;
+    --line:rgba(23,25,28,0.13);
+    --line-strong:rgba(23,25,28,0.28);
+    --display:'Newsreader',Georgia,serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --sans:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--sans); -webkit-font-smoothing:antialiased;}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{animation-duration:0.001ms!important;transition-duration:0.001ms!important;}}
+  a{color:var(--ink);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
+
+  /* grain */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.5;z-index:0;}
+
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+
+  /* ===== COVER ===== */
+  header.cover{padding:52px 0 40px; border-bottom:2px solid var(--ink);}
+  .eyebrow{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--ink);opacity:0.5;margin-bottom:18px;display:flex;gap:18px;flex-wrap:wrap;
+  }
+  h1.title{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(30px,5vw,52px);line-height:1.06;letter-spacing:-0.015em;margin-bottom:8px;
+  }
+  h1.title em{font-style:italic;color:var(--amber);}
+  .subtitle{font-size:15px;max-width:620px;color:rgba(23,25,28,0.72);line-height:1.6;margin-bottom:26px;}
+
+  .reason-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    border:1px solid var(--line-strong);
+  }
+  .reason{padding:14px 16px;border-right:1px solid var(--line);}
+  .reason:last-child{border-right:none;}
+  .reason .label{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:0.1em;opacity:0.5;display:block;margin-bottom:5px;}
+  .reason .value{font-family:var(--display);font-size:15px;font-weight:500;line-height:1.3;}
+
+  /* ===== STICKY NAV ===== */
+  nav.bar{
+    position:sticky;top:0;z-index:10;background:var(--paper);
+    border-bottom:1px solid var(--line-strong);padding:12px 0;
+    backdrop-filter:blur(3px);
+  }
+  nav.bar .wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .nav-label{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:0.1em;opacity:0.5;margin-right:4px;}
+  nav.bar a{
+    font-family:var(--mono);font-size:10.5px;text-decoration:none;
+    border:1px solid var(--line-strong);padding:4px 10px;background:var(--card);
+    white-space:nowrap;transition:background .14s,color .14s;
+  }
+  nav.bar a:hover{background:var(--ink);color:var(--paper);}
+
+  /* ===== LEGEND ===== */
+  .legend-row{display:flex;gap:20px;flex-wrap:wrap;padding:22px 0 6px;font-size:13px;}
+  .legend-row .item{display:flex;align-items:center;gap:8px;}
+  .badge{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:0.08em;font-weight:600;
+    padding:3px 8px;border:1.5px solid currentColor;text-transform:uppercase;border-radius:2px;
+  }
+  .badge.wildcard{color:var(--slate);}
+  .badge.open{color:var(--green);}
+  .badge.watch{color:var(--amber);}
+  .badge.caution{color:var(--red);}
+
+  /* ===== CITY ===== */
+  section.city{padding:52px 0 16px;border-bottom:1px solid var(--line);}
+  section.city:last-of-type{border-bottom:none;}
+
+  .city-masthead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:4px;}
+  .city-masthead .left{flex:1 1 340px;}
+  .city-code{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--amber);display:block;margin-bottom:5px;}
+  h2.city-name{font-family:var(--display);font-size:clamp(26px,3.4vw,38px);font-weight:700;letter-spacing:-0.01em;}
+  .hood{font-size:14px;font-style:italic;color:rgba(23,25,28,0.6);margin-top:2px;}
+  .why-dropped{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.04em;
+    color:rgba(23,25,28,0.55);margin-top:6px;
+    border-left:2px solid var(--line-strong);padding-left:10px;
+    max-width:440px;line-height:1.55;
+  }
+  .verdict-wrap{text-align:right;flex:0 0 auto;padding-top:4px;}
+  .verdict-wrap .badge{font-size:10.5px;padding:4px 11px;}
+  .verdict-note{display:block;font-family:var(--mono);font-size:9.5px;margin-top:5px;opacity:0.5;max-width:200px;line-height:1.5;}
+
+  /* two-col layout: prose + map */
+  .city-body{display:grid;grid-template-columns:1fr 380px;gap:32px;margin-top:20px;align-items:start;}
+  @media(max-width:900px){.city-body{grid-template-columns:1fr;}}
+
+  .rationale{font-size:14.5px;line-height:1.68;color:rgba(23,25,28,0.85);margin-bottom:22px;}
+
+  /* listings */
+  .listings{border:1px solid var(--line-strong);display:grid;gap:0;}
+  .listing{background:var(--card);padding:15px 17px 17px;border-bottom:1px solid var(--line);}
+  .listing:last-child{border-bottom:none;}
+  .listing .price{font-family:var(--display);font-size:20px;font-weight:700;}
+  .listing .tags{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0;}
+  .listing .tag{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:0.05em;border:1px solid var(--green-dim);color:var(--green);padding:2px 6px;}
+  .listing .place{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;color:rgba(23,25,28,0.5);margin-bottom:3px;}
+  .listing .desc{font-size:13px;line-height:1.5;color:rgba(23,25,28,0.75);}
+
+  /* map panel */
+  .map-panel{position:relative;}
+  .map-embed{
+    width:100%;aspect-ratio:3/4;border:1px solid var(--line-strong);overflow:hidden;background:var(--card);
+  }
+  @media(max-width:900px){.map-embed{aspect-ratio:16/9;}}
+  .map-embed iframe{width:100%;height:100%;border:0;}
+  .map-caption{font-family:var(--mono);font-size:10px;letter-spacing:0.04em;opacity:0.5;margin-top:8px;padding-left:2px;line-height:1.5;}
+
+  /* note callout */
+  .note{
+    margin-top:16px;font-size:13px;border-left:2px solid var(--line-strong);
+    padding-left:12px;color:rgba(23,25,28,0.58);line-height:1.55;
+  }
+
+  /* ===== WILDCARD CALLOUT (Tbilisi) ===== */
+  .wildcard-banner{
+    background:var(--slate);color:var(--paper);
+    padding:20px 22px;margin-bottom:22px;
+  }
+  .wildcard-banner .wc-label{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+    color:rgba(232,228,220,0.65);margin-bottom:8px;display:block;
+  }
+  .wildcard-banner p{font-size:14px;line-height:1.6;color:rgba(232,228,220,0.92);}
+  .wildcard-banner strong{color:var(--paper);}
+
+  /* ===== FOOTER ===== */
+  footer{padding:46px 0 72px;font-size:12.5px;color:rgba(23,25,28,0.52);}
+  footer .rule{border-top:1px solid var(--line-strong);margin-bottom:22px;}
+  footer p{max-width:680px;margin-bottom:10px;}
+
+  ::selection{background:var(--amber-glow);color:var(--ink);}
+</style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<header class="cover">
+  <div class="wrap">
+    <div class="eyebrow">
+      <span>FILE B — SECOND TIER PROSPECTS</span>
+      <span>8 CITIES</span>
+      <span>BUDGET $250–400K / UNIT</span>
+      <span>COMPILED JUN 2026</span>
+    </div>
+    <h1 class="title">Cities that almost<br>made <em>the first cut</em></h1>
+    <p class="subtitle">Eight neighborhoods that fell off the primary shortlist for recoverable reasons — a regulatory wrinkle, a high closing-cost environment, a buyer-approval process, or simply the fact that better-fitting options claimed those slots first. Each has a specific unlock condition noted.</p>
+    <div class="reason-grid">
+      <div class="reason"><span class="label">Why a second file</span><span class="value">First round not yet visited</span></div>
+      <div class="reason"><span class="label">Key wildcard</span><span class="value">Tbilisi — non-Schengen</span></div>
+      <div class="reason"><span class="label">Best budget fit</span><span class="value">Tbilisi / Gdańsk / Tallinn</span></div>
+      <div class="reason"><span class="label">Highest friction</span><span class="value">Split (ministry approval), Lyon (tax)</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== NAV ===== -->
+<nav class="bar" aria-label="Jump to city">
+  <div class="wrap">
+    <span class="nav-label">Jump</span>
+    <a href="#tbilisi">Tbilisi</a>
+    <a href="#tallinn">Tallinn</a>
+    <a href="#ghent">Ghent</a>
+    <a href="#thessaloniki">Thessaloniki</a>
+    <a href="#naples">Naples</a>
+    <a href="#lyon">Lyon</a>
+    <a href="#gdansk">Gdańsk</a>
+    <a href="#split">Split</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="legend-row">
+    <div class="item"><span class="badge wildcard">Wildcard</span> outside Schengen — doesn't count against 90-day clock</div>
+    <div class="item"><span class="badge open">Open</span> STR viable, buyer process clean</div>
+    <div class="item"><span class="badge watch">Watch</span> workable with zone or license caveat</div>
+    <div class="item"><span class="badge caution">Caution</span> meaningful friction — read the note</div>
+  </div>
+</div>
+
+<!-- ===== 01 — TBILISI ===== -->
+<section class="city" id="tbilisi">
+  <div class="wrap">
+    <div class="city-masthead">
+      <div class="left">
+        <span class="city-code">GE · TBILISI</span>
+        <h2 class="city-name">Tbilisi</h2>
+        <div class="hood">Vera · Vake</div>
+        <p class="why-dropped">Dropped from round 1: Georgia is not a typical "European city" frame — but strategically it may be the most important entry in both files combined.</p>
+      </div>
+      <div class="verdict-wrap">
+        <span class="badge wildcard">Wildcard</span>
+        <span class="verdict-note">Not Schengen. Doesn't cost a single day of your 90-day allowance.</span>
+      </div>
+    </div>
+
+    <div class="wildcard-banner">
+      <span class="wc-label">The Schengen pressure valve</span>
+      <p>Every Schengen property you own competes for the same 90 days per rolling 180-day window. Tbilisi is the only city in either file that <strong>costs you nothing</strong> against that clock — Georgia offers US citizens up to one year visa-free on entry. That means you can base yourself here for months at a time while renting out your Schengen properties, then make a Schengen circuit when the calendar allows. At <strong>$100k–$200k for a well-finished apartment in Vera or Vake</strong>, it also frees capital for a better unit elsewhere. Rental income taxed at a flat 5%. Zero capital gains after two years of ownership.</p>
+    </div>
+
+    <div class="city-body">
+      <div>
+        <p class="rationale">Vera and Vake are Tbilisi's most established upscale and expat-heavy neighborhoods — Vake is anchored by a large park, international schools, and a 5–6% gross rental yield profile; Vera sits closer to Rustaveli Avenue with boutique-hotel demand and Airbnb yields approaching 10% on smaller units. Foreigners buy with the same rights as Georgian citizens, legal fees rarely exceed $1,000, and property registration can cost as little as $20. The construction standards require careful due diligence — "black frame," "white frame," and "green frame" completions vary wildly in finish quality — but a new premium building in Vera at $2,000/m² produces a flat well inside your budget. The market hit record 40,350 transactions in 2024. New-build average: $1,312/m². Chugureti, adjacent to the Old Town, saw 28.3% price growth in Q1 2025 alone.</p>
+        <div class="listings">
+          <div class="listing">
+            <span class="place">Vera, new premium build</span>
+            <span class="price">~$120,000–160,000</span>
+            <div class="tags"><span class="tag">~80 m²</span><span class="tag">2BR</span><span class="tag">Green frame</span></div>
+            <p class="desc">At $2,000/m² for a quality new build in Vera — move-in ready, balcony standard.</p>
+          </div>
+          <div class="listing">
+            <span class="place">Vake, luxury apartment</span>
+            <span class="price">~$160,000–200,000</span>
+            <div class="tags"><span class="tag">80 m²</span><span class="tag">2BR</span><span class="tag">24hr security</span></div>
+            <p class="desc">Most prestigious address in the city; expat tenant pool at ~$1,000/mo = 7.5% gross yield.</p>
+          </div>
+          <div class="listing">
+            <span class="place">Ortachala (Old Town adjacent)</span>
+            <span class="price">~$100,000–140,000</span>
+            <div class="tags"><span class="tag">60–70 m²</span><span class="tag">Riverside</span><span class="tag">Green</span></div>
+            <p class="desc">Close to historic center with lower density; developer projects coming.</p>
+          </div>
+        </div>
+        <p class="note">Critical caveat: Georgia is not an EU country and has a political risk profile distinct from anywhere else on this list. The 2024 protests over the pro-Russia pivot of the Georgian Dream government, and ongoing EU accession uncertainty, are real factors — not dealbreakers for a low-price-point bet, but they change the holding-risk calculus compared to an EU purchase.</p>
+      </div>
+      <div class="map-panel">
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFmBWY&q=Vera+neighborhood+Tbilisi+Georgia&zoom=14"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p class="map-caption">Vera / Tbilisi, Georgia — Non-Schengen. Up to 1 year visa-free for US citizens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 — TALLINN ===== -->
+<section class="city" id="tallinn">
+  <div class="wrap">
+    <div class="city-masthead">
+      <div class="left">
+        <span class="city-code">EE · TALLINN</span>
+        <h2 class="city-name">Tallinn</h2>
+        <div class="hood">Kalamaja</div>
+        <p class="why-dropped">Dropped from round 1: Vilnius and Riga were already filling the Baltic slot. Kalamaja is the stronger lifestyle pick; Riga has the stronger aesthetic argument.</p>
+      </div>
+      <div class="verdict-wrap">
+        <span class="badge open">Open</span>
+        <span class="verdict-note">No apartment quota for foreigners; remote e-notary purchase possible</span>
+      </div>
+    </div>
+    <div class="city-body">
+      <div>
+        <p class="rationale">Kalamaja is Tallinn's Ruzafa: a wooden-house industrial-converted creative district that has drawn expats, digital nomads, and young professionals for a decade, now with Telliskivi Creative City at its center and a tram upgrade (Pelguranna line, design phase now, completion ~2029) that should push values 5–15%. Apartments in renovated wooden buildings run €220,000–€350,000 — sitting cleanly inside budget. Estonia imposes no foreign ownership quota on apartments, closing costs are among the lowest in the EU (0.8–1.8%), and the e-notary system means you can close a deal without traveling to Tallinn. Annual land tax is €20–€120 on a typical apartment. STR is active and unlicensed in any ban zone in Kalamaja.</p>
+        <div class="listings">
+          <div class="listing">
+            <span class="place">Kalamaja, renovated wooden house</span>
+            <span class="price">€220,000–280,000</span>
+            <div class="tags"><span class="tag">45–55 m²</span><span class="tag">2-room</span><span class="tag">Renovated</span><span class="tag">Period building</span></div>
+            <p class="desc">Classic Kalamaja character — wooden house, balcony or terrace, walking distance to Telliskivi.</p>
+          </div>
+          <div class="listing">
+            <span class="place">Kalamaja, new waterfront development</span>
+            <span class="price">€280,000–350,000</span>
+            <div class="tags"><span class="tag">50–65 m²</span><span class="tag">2BR</span><span class="tag">New build</span><span class="tag">Seaplane harbour view</span></div>
+            <p class="desc">Newer blocks near the Lennusadam Seaplane Harbour — modern finishes, better energy class.</p>
+          </div>
+        </div>
+        <p class="note">Secondary market asking prices run 14–20% above actual transaction prices in Tallinn — meaningful negotiating room, especially outside peak spring season. Verify energy performance certificate before any offer; older wooden houses can carry high heating costs.</p>
+      </div>
+      <div class="map-panel">
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFmBWY&q=Kalamaja+Tallinn+Estonia&zoom=15"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p class="map-caption">Kalamaja, Tallinn — Tram upgrade in design phase; asking prices 14–20% above transaction prices.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 — GHENT ===== -->
+<section class="city" id="ghent">
+  <div class="wrap">
+    <div class="city-masthead">
+      <div class="left">
+        <span class="city-code">BE · GHENT</span>
+        <h2 class="city-name">Ghent</h2>
+        <div class="hood">Patershol · Prinsenhof · Citadelpark fringe</div>
+        <p class="why-dropped">Dropped from round 1: Belgium's resale registration tax (10–12.5% in Flanders) is a genuine hit on a €300k purchase — you're starting ~€36,000 in the hole versus Italy's ~3% transfer tax.</p>
+      </div>
+      <div class="verdict-wrap">
+        <span class="badge watch">Watch</span>
+        <span class="verdict-note">No STR ban; budget-of-year VAT registration required for hosts</span>
+      </div>
+    </div>
+    <div class="city-body">
+      <div>
+        <p class="rationale">Ghent is the most underrated city in northwest Europe for this brief — medieval canal quarter, car-free center, Flemish Gothic architecture, Gravensteen castle, 35 minutes from Brussels by train, and a genuinely residential rather than tourist-saturated character compared to Bruges. Patershol is the charming cobblestone quarter for character; the Citadelpark fringe near Sint-Pieters station is calmer and leafier. Belgium's Flemish Region requires a VAT "budget of the year" registration for short-term hosts who cross a commercial threshold, but no city-level ban exists in Ghent. The fatal math: Flanders charges 12.5% droits d'enregistrement on resale properties. New-build VAT is 21%, which is worse. This is the reason it fell off — not lifestyle, which scores very well.</p>
+        <div class="listings">
+          <div class="listing">
+            <span class="place">Patershol / Historic center</span>
+            <span class="price">€280,000–360,000</span>
+            <div class="tags"><span class="tag">1–2BR</span><span class="tag">Period building</span><span class="tag">Terrace or roof access</span></div>
+            <p class="desc">Renovated units near the Graslei/Korenlei quays; some Art Nouveau buildings with big windows. Market is thin — fewer properties per street than in Czech or Polish comparables.</p>
+          </div>
+          <div class="listing">
+            <span class="place">Citadelpark fringe / Sint-Pieters</span>
+            <span class="price">€250,000–320,000</span>
+            <div class="tags"><span class="tag">2BR</span><span class="tag">Belle Époque</span><span class="tag">Park proximity</span></div>
+            <p class="desc">Stately older buildings near the station and museums; balconies common on upper floors.</p>
+          </div>
+        </div>
+        <p class="note">Unlock condition: if citizenship resolves and you're no longer counting Schengen days, Ghent becomes significantly more appealing — the lifestyle ranks very highly and the 12.5% entry cost stings less if you plan to hold for a decade.</p>
+      </div>
+      <div class="map-panel">
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFmBWY&q=Patershol+Ghent+Belgium&zoom=15"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p class="map-caption">Patershol, Ghent — Medieval quarter. Flanders 12.5% registration tax is the primary obstacle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 — THESSALONIKI ===== -->
+<section class="city" id="thessaloniki">
+  <div class="wrap">
+    <div class="city-masthead">
+      <div class="left">
+        <span class="city-code">GR · THESSALONIKI</span>
+        <h2 class="city-name">Thessaloniki</h2>
+        <div class="hood">Kalamaria (not Ano Poli or the center)</div>
+        <p class="why-dropped">Dropped from round 1: Athens was already in the file; Greece has limited the sense of adding a second Greek city. Then on June 24, 2026, the First Municipal Community STR freeze was extended.</p>
+      </div>
+      <div class="verdict-wrap">
+        <span class="badge watch">Watch</span>
+        <span class="verdict-note">New STR freeze in First Municipal Community from Jul 1, 2026; Kalamaria is outside it</span>
+      </div>
+    </div>
+    <div class="city-body">
+      <div>
+        <p class="rationale">As of July 1, 2026, Thessaloniki's historic and commercial core — the Aristotelous Square / Egnatia axis and surrounding neighborhoods — joined Athens under a short-term rental registration freeze, with fines starting at 20,000€ minimum for violations. Kalamaria, the affluent southeastern coastal suburb, is a separate municipality and sits outside this freeze. It's Thessaloniki's most self-contained "leafy and elite" option: waterfront promenade, metro-connected, well-maintained, family-oriented, with 2-3BR apartments running €250,000–€400,000. Pricing per m²: renovated units at €2,400–€3,200, new builds approaching €3,500+ in seafront positions. Rental yields run 3.0–4.2% gross for long-term family lets, higher for medium-term.</p>
+        <div class="listings">
+          <div class="listing">
+            <span class="place">Kalamaria, coastal / Aretsou promenade</span>
+            <span class="price">€250,000–320,000</span>
+            <div class="tags"><span class="tag">2BR</span><span class="tag">Sea/garden view</span><span class="tag">Elevator</span><span class="tag">Parking</span></div>
+            <p class="desc">Modern buildings with private parking — at ~€2,450/m² median, a 100 m² unit runs ~€245k.</p>
+          </div>
+          <div class="listing">
+            <span class="place">Kalamaria, premium / renovated block</span>
+            <span class="price">€320,000–400,000</span>
+            <div class="tags"><span class="tag">2–3BR</span><span class="tag">Seafront position</span><span class="tag">Renovated</span></div>
+            <p class="desc">Seafront or direct park-adjacent units; sells within 45–60 days of listing at current demand.</p>
+          </div>
+        </div>
+        <p class="note">Ano Poli (Upper Town) is the most atmospheric neighborhood in Thessaloniki — cobblestone streets, Byzantine walls, panoramic views — but it sits inside the new freeze zone and is off the table for new STR registration for the foreseeable future. File it under "long-term rental only" if it appeals.</p>
+      </div>
+      <div class="map-panel">
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFmBWY&q=Kalamaria+Thessaloniki+Greece&zoom=14"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p class="map-caption">Kalamaria, Thessaloniki — Separate municipality; outside the central STR freeze zone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 — NAPLES ===== -->
+<section class="city" id="naples">
+  <div class="wrap">
+    <div class="city-masthead">
+      <div class="left">
+        <span class="city-code">IT · NAPLES</span>
+        <h2 class="city-name">Naples</h2>
+        <div class="hood">Chiaia · Posillipo</div>
+        <p class="why-dropped">Dropped from round 1: Italy already had Bologna. The citizenship lawsuit is filed in Naples, which creates an unusual strategic overlap worth noting.</p>
+      </div>
+      <div class="verdict-wrap">
+        <span class="badge open">Open</span>
+        <span class="verdict-note">National CIN regime applies, same as Bologna — no city-level STR ban</span>
+      </div>
+    </div>
+    <div class="city-body">
+      <div>
+        <p class="rationale">The case filed in Naples means you'll likely have legitimate, recurring travel there over the next 1–3 years, independent of tourism days. Chiaia is the most "calm, leafy, elite" reading of Naples: the waterfront Lungomare, Piazza dei Martiri, tree-lined residential streets running up toward the Posillipo hill, and a social scene anchored by established Neapolitan families rather than backpackers. It's a genuine shock how much better value Naples is than Bologna at comparable quality: a renovated 2BR in Chiaia runs roughly €250,000–€350,000 where a comparable unit in central Bologna would be €320,000–€380,000. Same Italian CIN (codice identificativo nazionale) registration, same 21% flat-rate cedolare secca tax on first-property STR income.</p>
+        <div class="listings">
+          <div class="listing">
+            <span class="place">Chiaia, Via dei Mille / Piazza Amedeo</span>
+            <span class="price">€280,000–360,000</span>
+            <div class="tags"><span class="tag">2BR</span><span class="tag">80–100 m²</span><span class="tag">Period building</span><span class="tag">Balcony</span></div>
+            <p class="desc">The most residential, leafy streets of Chiaia — period palazzi, elevator buildings, views toward the Castel dell'Ovo.</p>
+          </div>
+          <div class="listing">
+            <span class="place">Chiaia, Lungomare-adjacent</span>
+            <span class="price">€320,000–400,000</span>
+            <div class="tags"><span class="tag">2BR</span><span class="tag">Sea view or partial</span><span class="tag">Terrace</span></div>
+            <p class="desc">Higher demand from tourists and temporary residents; stronger STR yield potential.</p>
+          </div>
+          <div class="listing">
+            <span class="place">Posillipo (uphill from Chiaia)</span>
+            <span class="price">€250,000–330,000</span>
+            <div class="tags"><span class="tag">1–2BR</span><span class="tag">Hill views</span><span class="tag">Quieter</span></div>
+            <p class="desc">Elevated residential area above Chiaia; genuinely calm, green, panoramic. Fewer tourists, more residential character.</p>
+          </div>
+        </div>
+        <p class="note">The citizenship case presence in Naples doesn't create legal residency or extend your Schengen days, but it does give you a credible, documentable purpose for trips that goes beyond tourism — useful context if you ever need to explain extended Schengen presence to border officials.</p>
+      </div>
+      <div class="map-panel">
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFmBWY&q=Chiaia+Naples+Italy&zoom=15"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p class="map-caption">Chiaia, Naples — Same CIN regime as Bologna, notably better value per m².</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 — LYON ===== -->
+<section class="city" id="lyon">
+  <div class="wrap">
+    <div class="city-masthead">
+      <div class="left">
+        <span class="city-code">FR · LYON</span>
+        <h2 class="city-name">Lyon</h2>
+        <div class="hood">Croix-Rousse</div>
+        <p class="why-dropped">Dropped from round 1: France has one of the EU's highest property purchase tax burdens for non-residents, and proposed new taxes on non-resident owners are moving through legislation.</p>
+      </div>
+      <div class="verdict-wrap">
+        <span class="badge caution">Caution</span>
+        <span class="verdict-note">7.5% purchase tax + non-resident surcharge proposals; STR permitted but tightening</span>
+      </div>
+    </div>
+    <div class="city-body">
+      <div>
+        <p class="rationale">Croix-Rousse is one of the best neighborhoods in Europe by the criteria in this brief: a genuine village-like hilltop quarter above Lyon's Presqu'île peninsula, with traboules (hidden passageways), a weekly market, independent cafés, and a creative community of silk workers' descendants turned artists. Lyon is a 2-hour TGV from Paris and a hub city with genuinely excellent food culture. The obstacle is France's tax architecture for non-residents: a 7.5% droits de mutation on most resale purchases, capital gains taxed at 36.2% for non-residents vs. 17.2% for French residents, and proposals (introduced in 2025, moving slowly) for additional surcharges on non-resident secondary property owners. STR in Lyon's Presqu'île peninsula has tightened; Croix-Rousse sits above the most affected zones. Worth revisiting if France's non-resident tax framework crystallizes more favorably or if other options run out of steam.</p>
+        <div class="listings">
+          <div class="listing">
+            <span class="place">Croix-Rousse plateau, period building</span>
+            <span class="price">€280,000–380,000</span>
+            <div class="tags"><span class="tag">2BR</span><span class="tag">70–90 m²</span><span class="tag">Traboule access</span><span class="tag">Balcony</span></div>
+            <p class="desc">Classic Canut-era buildings; exposed beams and stone common. Budget sits at the lower end of Croix-Rousse market pricing.</p>
+          </div>
+          <div class="listing">
+            <span class="place">Croix-Rousse, recent renovation</span>
+            <span class="price">€320,000–400,000</span>
+            <div class="tags"><span class="tag">2BR</span><span class="tag">Renovated</span><span class="tag">City or hill view</span></div>
+            <p class="desc">Fully renovated units with modern kitchens and bathrooms in period buildings — stronger STR appeal.</p>
+          </div>
+        </div>
+        <p class="note">Unlock condition: keep on watchlist pending the non-resident property tax legislation. If the surcharge is defeated or reduced significantly, Lyon / Croix-Rousse leapfrogs most of the first-file cities on pure lifestyle grounds.</p>
+      </div>
+      <div class="map-panel">
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFmBWY&q=Croix-Rousse+Lyon+France&zoom=15"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p class="map-caption">Croix-Rousse, Lyon — Best lifestyle score in this file. Caution on France's tax architecture for non-residents.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 — GDAŃSK ===== -->
+<section class="city" id="gdansk">
+  <div class="wrap">
+    <div class="city-masthead">
+      <div class="left">
+        <span class="city-code">PL · GDAŃSK</span>
+        <h2 class="city-name">Gdańsk</h2>
+        <div class="hood">Wrzeszcz · Oliwa</div>
+        <p class="why-dropped">Dropped from round 1: Kraków already filled the Poland slot. Gdańsk is the second Polish pick — less romantic to the tourist eye but stronger on the "leafy and well-connected" criteria.</p>
+      </div>
+      <div class="verdict-wrap">
+        <span class="badge open">Open</span>
+        <span class="verdict-note">Apartment purchase — same non-EU permit exemption as Kraków; no STR ban</span>
+      </div>
+    </div>
+    <div class="city-body">
+      <div>
+        <p class="rationale">Gdańsk is a Hanseatic city on the Baltic: extraordinary brick Gothic architecture in the Główne Miasto, but the neighborhoods worth living in are Wrzeszcz (tram-connected, tree-lined avenues, the main commercial street Wrzeszcz runs under a canopy of mature linden trees) and Oliwa (quieter, a cathedral and park, next to the Gdańsk Zoo). It's a genuinely livable city with a strong short-term tourist market driven by Poland's Baltic coast summer season, giving STR yields a seasonal dimension that Kraków's year-round market doesn't have. Prices are notably lower than Kraków's historic center — a renovated 2BR in Wrzeszcz runs roughly €180,000–€280,000. Same 2% PCC transfer tax on resale as elsewhere in Poland. No foreign apartment permit required.</p>
+        <div class="listings">
+          <div class="listing">
+            <span class="place">Wrzeszcz, tram corridor</span>
+            <span class="price">€180,000–240,000</span>
+            <div class="tags"><span class="tag">2–3 rooms</span><span class="tag">60–75 m²</span><span class="tag">Period building</span></div>
+            <p class="desc">Period apartment buildings on and near Grunwaldzka Ave — some of the most pleasant residential streets in Gdańsk.</p>
+          </div>
+          <div class="listing">
+            <span class="place">Oliwa</span>
+            <span class="price">€200,000–280,000</span>
+            <div class="tags"><span class="tag">2–3 rooms</span><span class="tag">Quiet</span><span class="tag">Park proximity</span></div>
+            <p class="desc">Near Oliwa Cathedral and park; genuinely leafy, residential, 15-minute tram to central Gdańsk.</p>
+          </div>
+        </div>
+        <p class="note">Gdańsk has the most seasonal STR demand of any city in either file — peak summer on the Baltic coast is intense, off-season is quieter. Medium-term let to professionals at Gdańsk's tech and shipping companies (Amazon, Intel, PGNiG) provides a strong fallback for the winter months.</p>
+      </div>
+      <div class="map-panel">
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFmBWY&q=Wrzeszcz+Gdansk+Poland&zoom=14"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p class="map-caption">Wrzeszcz, Gdańsk — Poland's second city pick. Seasonal STR peak; strong B2B medium-term demand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 08 — SPLIT ===== -->
+<section class="city" id="split">
+  <div class="wrap">
+    <div class="city-masthead">
+      <div class="left">
+        <span class="city-code">HR · SPLIT</span>
+        <h2 class="city-name">Split</h2>
+        <div class="hood">Meje · Manuš</div>
+        <p class="why-dropped">Dropped from round 1: non-EU buyers need Ministry of Justice approval (1–6 months) and the reciprocity requirement adds process risk. The moment citizenship resolves, the friction disappears entirely.</p>
+      </div>
+      <div class="verdict-wrap">
+        <span class="badge caution">Caution</span>
+        <span class="verdict-note">Non-EU buyer requires Ministry of Justice approval + reciprocity confirmation; up to 6 months</span>
+      </div>
+    </div>
+    <div class="city-body">
+      <div>
+        <p class="rationale">Croatia's Dalmatian coast is one of Europe's strongest short-term rental markets — Adriatic summer tourist demand drives STR occupancy rates that other cities can only dream of. Split itself is a living city (250,000 residents) rather than just a tourist stage set, and Meje — the calm, elegant western residential peninsula — is about as "leafy and elite" as any Mediterranean neighborhood on either list: villa-lined streets, proximity to the Kaštelet and Meštrovićeva Galerija, and a 10-minute walk along the water to Diocletian's Palace. Non-EU buyers must apply through the Ministry of Interior and wait 1–6 months for approval, referencing the US-Croatia reciprocity agreement. No coastal zone land can be bought by anyone (this is a hard restriction), but apartments within the urban fabric of Split are purchasable — you just need the approval first. 3% property transfer tax at closing.</p>
+        <div class="listings">
+          <div class="listing">
+            <span class="place">Meje</span>
+            <span class="price">€250,000–380,000</span>
+            <div class="tags"><span class="tag">1–2BR</span><span class="tag">Sea view or green</span><span class="tag">Residential street</span></div>
+            <p class="desc">Most prestigious quiet residential address in Split. Prices thin but available; smaller units with terraces in this range.</p>
+          </div>
+          <div class="listing">
+            <span class="place">Manuš (near Dioklecijanova Palača)</span>
+            <span class="price">€200,000–300,000</span>
+            <div class="tags"><span class="tag">1–2BR</span><span class="tag">Renovated</span><span class="tag">10 min from Old Town</span></div>
+            <p class="desc">Slightly removed from the palace tourist zone — more residential. Strong STR market during Adriatic season.</p>
+          </div>
+        </div>
+        <p class="note">Unlock condition: Italian citizenship, when it lands, changes you from a non-EU buyer to an EU buyer — which removes the Ministry approval requirement entirely and reduces acquisition to 2–8 weeks. This is the city that most directly rewards getting citizenship across the line first.</p>
+      </div>
+      <div class="map-panel">
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFmBWY&q=Meje+Split+Croatia&zoom=15"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p class="map-caption">Meje, Split — Non-EU Ministry approval now; EU citizen status clears it entirely.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="rule"></div>
+    <p><strong>Sequencing logic across both files:</strong> Tbilisi is the only entry in either file that costs zero Schengen days and deserves early consideration purely on that basis. Split is the one most rewarded by citizenship coming through first. Lyon is the watchlist entry pending French non-resident tax legislation. Everything else in this file is ready to buy now, with Kalamaja (Tallinn) and Wrzeszcz (Gdańsk) as the cleanest process and best value in their respective markets.</p>
+    <p>STR market data, property prices, and regulatory status current to June 2026. Thessaloniki's STR freeze extended to the First Municipal Community effective July 1, 2026 — less than one week from compilation date. All other regulatory readings are live as of this date but should be re-verified with a local solicitor before any purchase action, particularly for Greece, Croatia, and Georgia.</p>
+  </div>
+</footer>
+
+</body>
+</html>
